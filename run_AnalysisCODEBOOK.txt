@@ -1,0 +1,79 @@
+CODEBOOK
+
+run_Analysis.R manipulates the data from Version 1.0 of the "Human Activity Recognition Using Smartphones Dataset" data collected by 
+Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, and Luca Oneto of Smartlab Non Linear Complex Systems Laboratory
+
+The data was collected with a group of 30 volunteers between the ages of 19-48.  Each person performed six activities with a Samsung Galaxy S II on their waist.  The data was collected with the phone's accelerometer and gyroscope.
+The data was split into two sets - 70% of it in the "train" set and the rest in the "test" set.
+
+The run_Analysis script will perform the following actions in order to clean up the accelerometer/gyroscopic data collected from Samsung phones.
+
+It will read in the following six tables and then merge them into two frames - one for the test data and one for train.
+/UCI HAR Dataset/train/subject_train.txt
+/UCI HAR Dataset/train/x_train.txt
+/UCI HAR Dataset/train/y_train.txt
+/UCI HAR Dataset/test/subject_test.txt
+/UCI HAR Dataset/test/x_test.txt
+/UCI HAR Dataset/test/y_test.txt
+
+At that point, it will retrieve column names from the /UCI HAR Dataset/features.txt file and apply it to each data frame, along with a variable name subjects and activities.
+
+The two dataframes will then be put on top of each other so that there is only one column for subject and one for activity.  Since the test
+and the train data were gathered with the same method, there's no reason to have separate tables for each.
+
+Once we're down to a single data frame, we will create a new data frame with only the variables for subject, activity, and
+the mean and standard deviation of each acceleration, gyroscopic, jerk, and FFT measurement, sorted in such a way that all means
+and all standard deviations are together
+
+It will then call the Activitytransform function rename each activity according to the names given in /UCI HAR Dataset/activity_labels.txt
+
+The script will then melt the dataframe so that Subject and Activity are the only id variables and the rest are measurements, so that it can
+then be casted into one row per subject-activity pair with each other variable being the mean of each measurement for that pair.
+
+It will then write out a table to finaldata.txt in your working directory.  This file will have 68 columns.
+
+Subject is the assigned number of each of the 30 volunteers
+Activity is the activity that the subject performed of the six possibilities.
+The remaining 66 columns display the average value of the following measurements for each iteration of an activity by each subject.
+
+"-XYZ" denotes that there were three measurements (and therefore three columns) - one in each axis.
+a "t" prefix denotes that the data was collected in the time domain at a frequency of 50 Hz
+a "f" prefix indicates that a fast fourier transform was applied so the data is in the frequency domain.
+
+mean values for:	
+	tBodyAcc-XYZ
+	tGravityAcc-XYZ
+	tBodyAccJerk-XYZ
+	tBodyGyro-XYZ
+	tBodyGyroJerk-XYZ
+	tBodyAccMag
+	tGravityAccMag
+	tBodyAccJerkMag
+	tBodyGyroMag
+	tBodyGyroJerkMag
+	fBodyAcc-XYZ
+	fBodyAccJerk-XYZ
+	fBodyGyro-XYZ
+	fBodyAccMag
+	fBodyAccJerkMag
+	fBodyGyroMag
+	fBodyGyroJerkMag
+	
+standard deviation values for:
+	tBodyAcc-XYZ
+	tGravityAcc-XYZ
+	tBodyAccJerk-XYZ
+	tBodyGyro-XYZ
+	tBodyGyroJerk-XYZ
+	tBodyAccMag
+	tGravityAccMag
+	tBodyAccJerkMag
+	tBodyGyroMag
+	tBodyGyroJerkMag
+	fBodyAcc-XYZ
+	fBodyAccJerk-XYZ
+	fBodyGyro-XYZ
+	fBodyAccMag
+	fBodyAccJerkMag
+	fBodyGyroMag
+	fBodyGyroJerkMag
